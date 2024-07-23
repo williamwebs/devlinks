@@ -1,9 +1,17 @@
+"use client";
+
+import { navigationLinks } from "@/constants/constants";
 import { faCircleUser, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "../button/Button";
 
 const Nav = () => {
+  const pathname = usePathname();
+  console.log(pathname);
+
   return (
     <nav className="py-4 m-4 bg-white rounded-lg">
       <div className="container flex items-center justify-between">
@@ -18,20 +26,20 @@ const Nav = () => {
         </div>
         {/* links */}
         <div className="flex items-center gap-4">
-          <Link
-            href={"/links"}
-            className="flex items-center gap-1 border px-6 py-2 rounded-lg text-grey font-medium text-base"
-          >
-            <FontAwesomeIcon icon={faLink} className="w-5 h-5" />
-            Links
-          </Link>
-          <Link
-            href={"/links"}
-            className="flex items-center gap-1 border px-6 py-2 rounded-lg text-grey font-medium text-base"
-          >
-            <FontAwesomeIcon icon={faCircleUser} className="w-5 h-5" />
-            Profile Details
-          </Link>
+          {navigationLinks.map((link, index) => (
+            <Link
+              href={link.href}
+              key={index}
+              className={
+                pathname === link.href
+                  ? "flex items-center gap-1 px-6 py-2 rounded-lg text-primary bg-veryLightBlue font-medium text-base"
+                  : "flex items-center gap-1 px-6 py-2 rounded-lg text-grey font-medium text-base"
+              }
+            >
+              <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
+              {link.name}
+            </Link>
+          ))}
         </div>
         {/* cta */}
         <div>

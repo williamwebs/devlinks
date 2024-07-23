@@ -1,6 +1,7 @@
 import { Instrument_Sans } from "next/font/google";
 import "../../app/globals.css";
 import Nav from "@/components/nav/Nav";
+import SideNav from "@/components/sideNav/SideNav";
 
 const sans = Instrument_Sans({ subsets: ["latin"] });
 
@@ -13,9 +14,18 @@ export default function AppLayout({ children }) {
   return (
     <html lang="en">
       <body className={sans.className}>
-
         <Nav />
-        <main className="m-4">{children}</main>
+        <main className="m-4">
+          <div className="flex items-stretch gap-6 justify-between">
+            <div className="w-full md:w-2/5 bg-white rounded-lg">
+              <SideNav />
+            </div>
+
+            <div className="w-full md:w-3/5 bg-white p-10 rounded-lg">
+              {children}
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   );

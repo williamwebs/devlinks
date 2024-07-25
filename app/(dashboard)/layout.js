@@ -2,6 +2,7 @@ import { Instrument_Sans } from "next/font/google";
 import "../../app/globals.css";
 import Nav from "@/components/nav/Nav";
 import SideNav from "@/components/sideNav/SideNav";
+import { AuthProvider } from "../providers/Providers";
 
 const sans = Instrument_Sans({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function AppLayout({ children }) {
             </div>
 
             <div className="w-full md:w-3/5 bg-white p-10 rounded-lg">
-              {children}
+              <AuthProvider>{children}</AuthProvider>
             </div>
           </div>
         </main>

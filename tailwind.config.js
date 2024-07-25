@@ -17,6 +17,7 @@ module.exports = {
         white2: "#FAFAFA",
         lightBlue: "#BEADFF",
         veryLightBlue: "#EFEBFF",
+        bgGrey: "#EEEEEE",
       },
       container: {
         center: true,

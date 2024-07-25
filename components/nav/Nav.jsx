@@ -1,12 +1,12 @@
 "use client";
 
 import { navigationLinks } from "@/constants/constants";
-import { faCircleUser, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../button/Button";
+import { signOut } from "next-auth/react";
 
 const Nav = () => {
   const pathname = usePathname();
@@ -49,6 +49,8 @@ const Nav = () => {
           >
             Preview
           </Link>
+
+          <button onClick={() => signOut()}>logout</button>
         </div>
       </div>
     </nav>

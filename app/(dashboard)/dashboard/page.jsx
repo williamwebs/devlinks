@@ -1,4 +1,5 @@
 import { Button } from "@/components/button/Button";
+import Save from "@/components/button/Save";
 import Image from "next/image";
 
 const page = () => {
@@ -11,11 +12,9 @@ const page = () => {
         Add/edit/remove links below and then share all your profiles with the
         world!
       </p>
-
       <Button variant="outline" size="default" className="block w-full mb-6">
         + Add new link
       </Button>
-
       <div className="p-5 bg-white2 rounded-lg mb-6">
         <div className="w-fit mx-auto">
           <Image
@@ -36,16 +35,7 @@ const page = () => {
           </p>
         </div>
       </div>
-
-      <div className="w-full border-t-2 py-4">
-        <Button
-          variant="default"
-          size="default"
-          className="block w-fit ml-auto"
-        >
-          save
-        </Button>
-      </div>
+      <Save />
     </main>
   );
 };

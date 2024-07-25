@@ -1,5 +1,6 @@
 import { Instrument_Sans } from "next/font/google";
-import "./globals.css";
+import "../../app/globals.css";
+import { AuthProvider } from "../providers/Providers";
 
 const sans = Instrument_Sans({ subsets: ["latin"] });
 
@@ -11,7 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={sans.className}>{children}</body>
+      <body className={sans.className}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

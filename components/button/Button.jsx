@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-lg text-base font-bold transition-colors disabled:cursor-not-allowed text-center",
+  "inline-flex items-center justify-center rounded-lg text-base font-bold transition-colors disabled:cursor-not-allowed disabled:bg-veryLightBlue text-center",
   {
     variants: {
       variant: {

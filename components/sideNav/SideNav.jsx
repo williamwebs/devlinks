@@ -20,8 +20,8 @@ const SideNav = () => {
           <div class="h-[64px] w-[5px] bg-grey absolute -end-[17px] top-[142px] rounded-e-lg"></div>
           <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800"></div>
 
-          <div className="absolute top-0 left-0 w-full h-full p-5">
-            <div className="flex items-center justify-center w-full h-full">
+          <div className="absolute top-0 left-0 w-full h-full px-5 py-10 overflow-hidden">
+            <div className="flex items-start justify-center w-full h-full">
               <div className="mb-5">
                 {/* picture */}
                 <div className="w-24 h-24 mx-auto rounded-full bg-bgGrey mb-4"></div>

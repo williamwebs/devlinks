@@ -4,45 +4,27 @@ import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import Page from "@/models/page";
 
-export const POST = async (req) => {
-  const { firstname, lastname, email, image } = await req.json();
+export const GET = async (req, res) => {
   const session = await getServerSession(authOptions);
 
   console.log(session);
 
   try {
     await connectToDB();
-
     //   check if page exits
     const existingPage = await Page.findOne({ email: session?.user?.email });
-
     if (existingPage) {
-      //  update the existing page
-      await Page.findByIdAndUpdate(existingPage._id, {
-        firstname,
-        lastname,
-        image,
-      });
+      console.log(existingPage);
+      return NextResponse.json(existingPage);
     } else {
-      // create new page
-      await Page.create({
-        firstname,
-        lastname,
-        email: session?.user?.email,
-        image,
+      return NextResponse.json({
+        error: "error",
       });
     }
-
-    return NextResponse.json(
-      {
-        message: "Profile saved successfully!",
-      },
-      { status: 200 }
-    );
   } catch (error) {
     return NextResponse.json(
       {
-        error: "error saving profile",
+        error: "error fetching profile",
       },
       {
         status: 500,

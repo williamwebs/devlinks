@@ -1,6 +1,26 @@
+"use client";
+
+import axios from "axios";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const SideNav = () => {
+  const [profile, setProfile] = useState();
+
+  // fetch profile details
+  const fetchUserProfile = async () => {
+    try {
+      const res = await axios.get("/api/get-profile");
+      console.log(res.data);
+      setProfile(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
   return (
     <>
       {/* <div className="flex items-center justify-center h-full">
@@ -23,11 +43,35 @@ const SideNav = () => {
           <div className="absolute top-0 left-0 w-full h-full px-5 py-10 overflow-hidden">
             <div className="flex items-start justify-center w-full h-full">
               <div className="mb-5">
-                {/* picture */}
-                <div className="w-24 h-24 mx-auto rounded-full bg-bgGrey mb-4"></div>
-                <div className="w-32 h-9 mx-auto mb-10">
-                  <div className="w-full h-4 mb-2 bg-bgGrey rounded-full"></div>
-                  <div className="h-2 w-20 mx-auto bg-bgGrey rounded-full"></div>
+                {/* picture | show this skeleton when user has no image*/}
+                {profile ? (
+                  <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
+                    <img
+                      src={profile.image}
+                      alt={profile.firstname + " " + profile.lastname}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-24 h-24 mx-auto rounded-full bg-bgGrey mb-4"></div>
+                )}
+
+                <div className="w-full h-9 mx-auto mb-6">
+                  {profile ? (
+                    <div className="text-center">
+                      <h4 className="font-semibold text-base text-dark">
+                        {profile.firstname + " " + profile.lastname}
+                      </h4>
+                      <p className="font-normal text-grey text-xs">
+                        {profile.email}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="w-32 mx-auto h-4 mb-2 bg-bgGrey rounded-full"></div>
+                      <div className="w-[60px] h-2 mx-auto bg-bgGrey rounded-full"></div>
+                    </div>
+                  )}
                 </div>
 
                 {/* links */}

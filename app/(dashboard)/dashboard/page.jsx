@@ -3,16 +3,34 @@
 import { Button } from "@/components/button/Button";
 import Save from "@/components/button/Save";
 import Links from "@/components/forms/Links";
+import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const page = () => {
   const [showForm, setShowForm] = useState(false);
   const [linkCount, setLinkCount] = useState(1);
+  const [links, setLinks] = useState([]);
 
   const handleAddLink = () => {
+    setLinkCount(linkCount + 1);
     setShowForm(true);
   };
+
+  // fetch links from db
+  const getLinks = async () => {
+    try {
+      const res = await axios.get("/api/get-links");
+      setLinks(res.data);
+      setShowForm(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getLinks();
+  }, []);
 
   return (
     <main className="w-full">
@@ -31,6 +49,19 @@ const page = () => {
       >
         + Add new link
       </Button>
+
+      {/* {Array(linkCount)
+        .fill(0)
+        .map((_, index) => (
+          <Links
+            key={index}
+            defaultValue={
+              links[index]
+                ? { name: links[index].name, href: links[index].href }
+                : {}
+            }
+          />
+        ))} */}
 
       {showForm && <Links />}
 

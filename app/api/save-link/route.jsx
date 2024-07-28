@@ -16,7 +16,7 @@ export const POST = async (req) => {
     console.log(userPage);
 
     if (userPage) {
-      // check if the link exixts already and update the href
+      // check if the link exixts already and update the href\
       await Page.findByIdAndUpdate(userPage._id, {
         $push: { links: { name, href } },
       });

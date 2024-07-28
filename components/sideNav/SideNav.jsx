@@ -1,11 +1,14 @@
 "use client";
 
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const SideNav = () => {
   const [profile, setProfile] = useState();
+  const [links, setLinks] = useState();
 
   // fetch profile details
   const fetchUserProfile = async () => {
@@ -18,8 +21,23 @@ const SideNav = () => {
     }
   };
 
+  // fetch links from db
+  const getLinks = async () => {
+    try {
+      const res = await axios.get("/api/get-links");
+      setLinks(res.data);
+      setShowForm(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchUserProfile();
+  }, []);
+
+  useEffect(() => {
+    getLinks();
   }, []);
   return (
     <>
@@ -75,12 +93,29 @@ const SideNav = () => {
                 </div>
 
                 {/* links */}
+
                 <div className="h-full w-[230px] mx-auto">
-                  <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
-                  <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
-                  <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
-                  <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
-                  <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
+                  {links &&
+                    links.map((link, index) => (
+                      <div
+                        key={index}
+                        className="mb-3 bg-bgGrey w-full h-11 rounded-lg flex items-center px-2"
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <h4 className="text-sm font-semibold">{link.name}</h4>
+                          <FontAwesomeIcon icon={faArrowRight} className="w-2" />
+                        </div>
+                      </div>
+                    ))}
+                  {!links && (
+                    <div>
+                      <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
+                      <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
+                      <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
+                      <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
+                      <div className="mb-3 bg-bgGrey w-full h-11 rounded-lg"></div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

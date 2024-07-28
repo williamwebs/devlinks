@@ -50,7 +50,7 @@ const SideNav = () => {
         />
       </div> */}
 
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center h-full py-10">
         <div class="relative mx-auto border-grey bg-transparent border-[12px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
           <div class="w-[148px] h-[18px] bg-grey top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
           <div class="h-[46px] w-[5px] bg-grey absolute -start-[17px] top-[124px] rounded-s-lg"></div>
@@ -99,11 +99,24 @@ const SideNav = () => {
                     links.map((link, index) => (
                       <div
                         key={index}
-                        className="mb-3 bg-bgGrey w-full h-11 rounded-lg flex items-center px-2"
+                        className={`mb-3 w-full h-11 rounded-lg flex items-center px-2 ${
+                          link.name === "Github"
+                            ? "bg-dark"
+                            : link.name === "Facebook"
+                            ? "bg-facebook"
+                            : link.name === "Youtube"
+                            ? "bg-red"
+                            : link.name === "LinkedIn"
+                            ? "bg-linkedin"
+                            : "bg-bgGrey"
+                        }`}
                       >
                         <div className="flex items-center justify-between w-full">
-                          <h4 className="text-sm font-semibold">{link.name}</h4>
-                          <FontAwesomeIcon icon={faArrowRight} className="w-2" />
+                          <h4 className="text-sm font-medium text-white2">{link.name}</h4>
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="w-2 text-white2"
+                          />
                         </div>
                       </div>
                     ))}

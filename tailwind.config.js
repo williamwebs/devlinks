@@ -18,6 +18,8 @@ module.exports = {
         lightBlue: "#BEADFF",
         veryLightBlue: "#EFEBFF",
         bgGrey: "#EEEEEE",
+        linkedin: "#2D68FF",
+        facebook: "#3b5998",
       },
       container: {
         center: true,

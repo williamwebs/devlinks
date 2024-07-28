@@ -59,7 +59,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserProfile();
-  }, [profile]);
+  }, []);
 
   return (
     <form onSubmit={handleProfileSave}>

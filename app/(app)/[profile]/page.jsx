@@ -94,7 +94,7 @@ const ProfilePage = () => {
             <div className="mt-6">
               {page &&
                 page?.links?.map((link, index) => (
-                  <Link link={link} index={index} />
+                  <Link link={link} key={index} />
                 ))}
             </div>
 

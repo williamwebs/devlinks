@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [formInput, setFormInput] = useState({});
@@ -32,16 +33,20 @@ const Login = () => {
       });
 
       if (res.error) {
-        console.log("Invalid credentials!");
-        setLoading(false);
-        return;
+        // Handle authentication error
+        toast.error(res.error);
+      } else {
+        // Handle successful authentication
+        toast.success("Login successful!");
+        router.push("/dashboard");
       }
-
-      router.push("/dashboard");
-
       setLoading(false);
     } catch (error) {
-      console.log(error);
+     if (error.message === "Incorrect password!") {
+       toast.error("Incorrect password!");
+     } else {
+       toast.error("An errort occurred. Please try again.");
+     }
       setLoading(false);
     }
   };

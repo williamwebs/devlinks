@@ -7,6 +7,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [formInput, setFormInput] = useState({});
@@ -25,26 +26,37 @@ const Register = () => {
 
     try {
       setLoading(true);
-      if (formInput.password === formInput.password) {
-        console.log(formInput);
+      if (formInput.password === formInput.confirmPassword) {
+        // console.log(formInput);
         const res = await axios.post("/api/register", {
           password: formInput.password,
           email: formInput.email,
         });
 
         if (res.statusText === "OK") {
-          router.push("/dashboard");
+          toast.success("registered!");
+          router.push("/login");
         }
 
-        console.log(res);
+        if (res.data.error) {
+          toast.error(res.data.error);
+        }
+
+        // console.log(res);
 
         setLoading(false);
       } else {
+        toast.error("passwords do not match!");
         console.log("passwords do not match");
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
+
       setLoading(false);
     }
   };

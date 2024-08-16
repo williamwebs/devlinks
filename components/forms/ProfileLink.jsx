@@ -37,6 +37,10 @@ const ProfileLink = () => {
       setLoading(true);
       const res = await axios.post("/api/save-link", data);
       setLoading(false);
+
+      // clear the data field
+      setDropdownOpen(dropdownList?.[0].name);
+      setLink("");
     } catch (error) {
       setLoading(false);
       console.log(error);

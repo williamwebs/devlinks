@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button } from "../button/Button";
+import toast from "react-hot-toast";
 
 const Nav = () => {
   const [url, setUrl] = useState("");
@@ -22,7 +24,8 @@ const Nav = () => {
   const fetchUserProfile = async () => {
     try {
       const res = await axios.get("/api/get-profile");
-      setUrl(res.data.url);
+      setUrl(res.data);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +33,13 @@ const Nav = () => {
 
   useEffect(() => {
     fetchUserProfile();
+    // const intervalId = setInterval(() => {
+    //   fetchUserProfile();
+    // }, 5000); // fetch data every 5 seconds
+
+    // return () => {
+    //   clearInterval(intervalId);
+    // };
   }, []);
 
   return (
@@ -73,13 +83,26 @@ const Nav = () => {
         </div>
         {/* cta */}
         <div className="flex items-center gap-2 md:gap-4">
-          <Link
-            href={`/${url}`}
-            className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-base"
-          >
-            <span className="hidden md:flex">Preview</span>
-            <FontAwesomeIcon icon={faEye} className="w-4 h-4 md:hidden" />
-          </Link>
+          {url?.url && (
+            <Link
+              href={`/${url.url}`}
+              className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-base"
+            >
+              <span className="hidden md:flex">Preview</span>
+              <FontAwesomeIcon icon={faEye} className="w-4 h-4 md:hidden" />
+            </Link>
+          )}
+          {!url?.url && (
+            <Button
+              variant="outline"
+              size="default"
+              className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-base"
+              onClick={() => toast.error(`${url.error}`)}
+            >
+              <span className="hidden md:flex">Preview</span>
+              <FontAwesomeIcon icon={faEye} className="w-4 h-4 md:hidden" />
+            </Button>
+          )}
 
           <div
             className="border bg-transparent text-grey hover:bg-lightBlue hover:text-white2 w-10 h-10 rounded flex items-center justify-center cursor-pointer transition-all duration-300"

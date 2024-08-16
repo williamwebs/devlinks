@@ -72,19 +72,23 @@ const Profile = () => {
 
     const updatedFormInput = { ...formInput, image: imageURL };
     try {
+      setLoading(true);
       const res = await axios.post("/api/save-profile", updatedFormInput);
 
       if (res.data.error) {
         toast.error(res.data.error);
+        setLoading(false);
       } else {
         toast.success(res.data.message);
+        setLoading(false);
       }
     } catch (error) {
       toast.error(error);
       console.log(error);
+      setLoading(false);
     }
 
-    console.log(formInput);
+    // console.log(formInput);
   };
 
   // fetch profile details
@@ -297,7 +301,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <Save />
+      <Save loading={loading} />
     </form>
   );
 };

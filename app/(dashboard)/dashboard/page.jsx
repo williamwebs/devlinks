@@ -7,7 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const page = () => {
+const Dashboard = () => {
   const [showForm, setShowForm] = useState(false);
   const [links, setLinks] = useState([]);
 
@@ -54,19 +54,6 @@ const page = () => {
         + Add new link
       </Button>
 
-      {/* {Array(linkCount)
-        .fill(0)
-        .map((_, index) => (
-          <Links
-            key={index}
-            defaultValue={
-              links[index]
-                ? { name: links[index].name, href: links[index].href }
-                : {}
-            }
-          />
-        ))} */}
-
       {showForm && <Links />}
 
       {/* show only if theres no link */}
@@ -100,4 +87,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Dashboard;

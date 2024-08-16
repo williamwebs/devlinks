@@ -8,7 +8,7 @@ import { notFound, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const page = () => {
+const ProfilePage = () => {
   const [page, setPage] = useState({});
   const { data: session } = useSession();
   const path = usePathname();
@@ -115,4 +115,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

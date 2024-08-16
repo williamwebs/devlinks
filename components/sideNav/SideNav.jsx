@@ -74,7 +74,7 @@ const SideNav = () => {
               <div className="h-full w-[230px] mx-auto">
                 {profile?.links?.length > 0 &&
                   profile.links.map((link, index) => (
-                    <Card link={link} index={index} />
+                    <Card link={link} key={index} />
                   ))}
                 {profile?.links?.length === 0 && (
                   <div>

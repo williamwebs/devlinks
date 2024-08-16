@@ -116,7 +116,7 @@ export default function Home() {
       <footer className="bg-devto py-3">
         <div className="container text-grey text-sm text-center">
           &copy;{" "}
-          <a href="https://github.com/williamwebs" className="underline">
+          <a href="https://wa.link/u8xe3d" className="underline">
             th_ejouRney.xyz
           </a>
           , 2024

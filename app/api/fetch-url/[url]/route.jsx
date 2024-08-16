@@ -6,6 +6,7 @@ export const GET = async (req, res) => {
   // get the url from the link
 
   const url = req.nextUrl.pathname.split("/").pop();
+  console.log(url);
 
   try {
     await connectToDB();
@@ -24,13 +25,16 @@ export const GET = async (req, res) => {
       );
     }
   } catch (error) {
+    console.log(error);
+
     return NextResponse.json(
-      {
-        error: "error fetching profile!",
-      },
-      {
-        status: 500,
-      }
+      error
+      // {
+      //   error: "error fetching profile!",
+      // },
+      // {
+      //   status: 500,
+      // }
     );
   }
 };

@@ -14,7 +14,7 @@ const ProfilePage = () => {
   const { data: session } = useSession();
   const path = usePathname();
   const url = path.split("/").pop();
-  console.log(url);
+  // console.log(url);
 
   const router = useRouter();
 
@@ -22,7 +22,7 @@ const ProfilePage = () => {
   const fetchPage = async () => {
     try {
       const res = await axios.get(`/api/fetch-url/${url}`);
-      console.log(res.status);
+      // console.log(res.status);
       setPage(res.data);
 
       if (res.status === 404) {
@@ -127,6 +127,15 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
+        <p className="text-xs text-center text-grey font-normal mb-10">
+          created with:{" "}
+          <a
+            href="https://devlinks-kohl.vercel.app"
+            className="text-primary font-semibold hover:underline"
+          >
+            devlinks
+          </a>
+        </p>
       </main>
     </>
   );

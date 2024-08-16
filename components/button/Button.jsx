@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import Link from "next/link";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -24,9 +25,18 @@ const buttonVariants = cva(
 );
 
 const Button = forwardRef(
-  ({ variant = "default", size = "default", className, ...props }, ref) => {
+  (
+    { variant = "default", size = "default", className, href, ...props },
+    ref
+  ) => {
     const baseClassName = buttonVariants({ variant, size });
     const mergedClassName = twMerge(baseClassName, className);
+
+    if (href) {
+      return (
+        <Link href={href} ref={ref} className={mergedClassName} {...props} />
+      );
+    }
 
     return <button ref={ref} className={mergedClassName} {...props} />;
   }

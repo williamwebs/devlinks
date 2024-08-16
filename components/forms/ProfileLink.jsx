@@ -6,13 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Save from "../button/Save";
 import axios from "axios";
-import toast from "react-hot-toast";
 
-const Links = () => {
+const ProfileLink = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState({
     name: dropdownList?.[0].name,
-    icon: dropdownList?.[0].icon,
+    svg: dropdownList?.[0].svg,
   });
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,28 +30,15 @@ const Links = () => {
   // handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(selectedOption);
-
-    const data = {
-      name: selectedOption.name,
-      href: link,
-    };
+    const data = { name: selectedOption.name, href: link };
     console.log(data);
 
     try {
       setLoading(true);
       const res = await axios.post("/api/save-link", data);
       setLoading(false);
-
-      if (res.data.error) {
-        toast.error(res.data.error);
-      } else {
-        toast.success(res.data.message);
-      }
     } catch (error) {
       setLoading(false);
-      toast.error("An unexpected error occurred.Try again!");
       console.log(error);
     }
   };
@@ -67,12 +53,12 @@ const Links = () => {
             onClick={handleDropdown}
           >
             <div className="flex items-center">
-              <div className="mr-2">
-                <FontAwesomeIcon
-                  icon={selectedOption.icon}
-                  className="w-3 h-3"
-                />
-              </div>
+              <div
+                className="mr-2"
+                dangerouslySetInnerHTML={{
+                  __html: selectedOption.svg,
+                }}
+              />
               <span className="btn__text">{selectedOption.name}</span>
             </div>
             <FontAwesomeIcon icon={faChevronDown} className="w-3 h-3" />
@@ -88,10 +74,7 @@ const Links = () => {
                   key={index}
                 >
                   <div className="mr-2">
-                    <FontAwesomeIcon
-                      icon={option.icon}
-                      className="w-3 h-3 text-dark"
-                    />
+                    <FontAwesomeIcon icon={option.icon} className="w-3 h-3" />
                   </div>
 
                   <span className="option__text text-sm font-medium text-dark">
@@ -136,4 +119,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default ProfileLink;

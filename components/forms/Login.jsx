@@ -50,7 +50,7 @@ const Login = () => {
     <form className="max-w-sm mx-auto" onSubmit={handleLogin}>
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-xs font-normal text-dark"
+        className="block mb-2 text-base md:text-xs font-normal text-dark"
       >
         Your Email
       </label>
@@ -81,7 +81,7 @@ const Login = () => {
       {/* password */}
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-xs font-normal text-dark"
+        className="block mb-2 text-base md:text-xs font-normal text-dark"
       >
         Password
       </label>

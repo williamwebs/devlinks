@@ -1,30 +1,32 @@
 import { connectToDB } from "@/utils/database";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import Page from "@/models/page";
 
 export const GET = async (req, res) => {
-  const session = await getServerSession(authOptions);
+  // get the url from the link
 
-  console.log(session);
+  const url = req.nextUrl.pathname.split("/").pop();
 
   try {
     await connectToDB();
     //   check if page exits
-    const existingPage = await Page.findOne({ email: session?.user?.email });
+    const existingPage = await Page.findOne({ url });
     if (existingPage) {
-      console.log(existingPage);
       return NextResponse.json(existingPage);
     } else {
-      return NextResponse.json({
-        error: "Complete your profile!",
-      });
+      return NextResponse(
+        {
+          error: "no user found!",
+        },
+        {
+          status: 404,
+        }
+      );
     }
   } catch (error) {
     return NextResponse.json(
       {
-        error: "error fetching profile",
+        error: "error fetching profile!",
       },
       {
         status: 500,

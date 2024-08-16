@@ -5,7 +5,7 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import Page from "@/models/page";
 
 export const POST = async (req) => {
-  const { firstname, lastname, email, image } = await req.json();
+  const { firstname, lastname, url, image, bio } = await req.json();
   const session = await getServerSession(authOptions);
 
   console.log(session);
@@ -22,6 +22,8 @@ export const POST = async (req) => {
         firstname,
         lastname,
         image,
+        url,
+        bio,
       });
     } else {
       // create new page
@@ -30,6 +32,8 @@ export const POST = async (req) => {
         lastname,
         email: session?.user?.email,
         image,
+        url,
+        bio,
       });
     }
 

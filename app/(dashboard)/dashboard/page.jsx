@@ -9,12 +9,10 @@ import { useEffect, useState } from "react";
 
 const page = () => {
   const [showForm, setShowForm] = useState(false);
-  const [linkCount, setLinkCount] = useState(1);
   const [links, setLinks] = useState([]);
 
   const handleAddLink = () => {
-    setLinkCount(linkCount + 1);
-    setShowForm(true);
+    setShowForm((prev) => !prev);
   };
 
   // fetch links from db
@@ -22,9 +20,15 @@ const page = () => {
     try {
       const res = await axios.get("/api/get-links");
       setLinks(res.data);
-      setShowForm(true);
+
+      if (res.data.length > 0) {
+        setShowForm(true);
+      } else {
+        setShowForm(false);
+      }
     } catch (error) {
       console.log(error);
+      setShowForm(false);
     }
   };
 

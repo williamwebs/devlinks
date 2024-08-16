@@ -15,11 +15,12 @@ export const GET = async () => {
     if (userPage) {
       console.log(userPage.links);
       const response = userPage.links;
+
       return NextResponse.json(response);
     } else {
       console.log("complete profile and try again!");
       return NextResponse.json({
-        message: "Complete profile and try again!",
+        error: "Complete profile and try again!",
       });
     }
   } catch (error) {

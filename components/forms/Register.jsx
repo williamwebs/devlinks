@@ -53,7 +53,7 @@ const Register = () => {
     <form className="max-w-sm mx-auto" onSubmit={registerUser}>
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-xs font-normal text-dark"
+        className="block mb-2 text-base md:text-xs font-normal text-dark"
       >
         Email address
       </label>
@@ -84,7 +84,7 @@ const Register = () => {
       {/* create password */}
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-xs font-normal text-dark"
+        className="block mb-2 text-base md:text-xs font-normal text-dark"
       >
         Create password
       </label>
@@ -115,7 +115,7 @@ const Register = () => {
       {/* confirm password */}
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-xs font-normal text-dark"
+        className="block mb-2 text-base md:text-xs font-normal text-dark"
       >
         Confirm password
       </label>
@@ -143,7 +143,7 @@ const Register = () => {
         />
       </div>
 
-      <p className="text-base font-normal text-grey text-left my-2">
+      <p className="text-sm md:text-base font-normal text-grey text-left mb-3 -mt-2">
         Password must contains at least 8 characters
       </p>
 

@@ -16,10 +16,27 @@ export const POST = async (req) => {
     console.log(userPage);
 
     if (userPage) {
-      // check if the link exixts already and update the href\
-      await Page.findByIdAndUpdate(userPage._id, {
-        $push: { links: { name, href } },
-      });
+      // check if the link already exist
+      const existingLink = userPage.links.find((link) => link.name === name);
+
+      if (existingLink) {
+        // update the existing link
+        await Page.findByIdAndUpdate(
+          userPage._id,
+          {
+            $set: { "links.$[elem].href": href },
+          },
+          {
+            arrayFilters: [{ "elem.name": name }],
+          }
+        );
+      } else {
+        // Add new link
+        await Page.findByIdAndUpdate(userPage._id, {
+          $push: { links: { name, href } },
+        });
+      }
+
       return NextResponse.json(
         {
           message: "link saved successfully!",
@@ -27,9 +44,9 @@ export const POST = async (req) => {
         { status: 200 }
       );
     } else {
-      console.log("create profile first");
+      console.log("create profile first!");
       return NextResponse.json({
-        message: "complete your profile first",
+        error: "complete your profile first!",
       });
     }
   } catch (error) {

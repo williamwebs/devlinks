@@ -12,13 +12,13 @@ const page = () => {
               <Image
                 src={"/images/devlinks-logo.png"}
                 height={40}
-                width={182.5}
+                width={120}
                 alt="devlinks logo"
               />
             </Link>
             <div className="bg-white rounded-xl p-5 md:p-10">
-              <h2 className="text-dark font-semibold text-2xl mb-2">Login</h2>
-              <p className="text-base font-normal text-grey mb-10">
+              <h2 className="text-dark font-semibold text-xl ">Login</h2>
+              <p className="text-sm font-normal text-grey mb-10">
                 Add your details below to get back into the app
               </p>
 

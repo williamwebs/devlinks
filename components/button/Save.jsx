@@ -4,7 +4,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const Save = ({ loading }) => {
   return (
-    <div className="w-full border-t-2 py-4 mt-10">
+    <div className="w-full py-1 -mt-5 mb-5">
       <Button
         variant="default"
         size="default"

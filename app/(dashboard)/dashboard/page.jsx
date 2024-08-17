@@ -38,10 +38,10 @@ const Dashboard = () => {
 
   return (
     <main className="w-full">
-      <h2 className="text-dark font-semibold text-2xl mb-2">
+      <h2 className="text-dark font-semibold text-xl mb-1">
         Customize your links
       </h2>
-      <p className="text-base font-normal text-grey mb-10">
+      <p className="text-sm font-normal text-grey mb-10">
         Add/edit/remove links below and then share all your profiles with the
         world!
       </p>
@@ -63,16 +63,16 @@ const Dashboard = () => {
             <div className="w-fit mx-auto">
               <Image
                 src={"/images/swipe-phone-illustration.png"}
-                width={220}
+                width={180}
                 height={160}
                 alt="swipe phone illustration"
               />
             </div>
-            <div className="my-8 max-w-lg mx-auto text-center">
-              <h3 className="text-dark font-semibold text-2xl mb-2">
+            <div className="my-4 max-w-lg mx-auto text-center">
+              <h3 className="text-dark font-semibold text-xl mb-1">
                 Let’s get you started
               </h3>
-              <p className="text-base font-normal text-grey mb-10">
+              <p className="text-sm font-normal text-grey mb-2">
                 Use the “Add new link” button to get started. Once you have more
                 than one link, you can reorder and edit them. We’re here to help
                 you share your profiles with everyone!

@@ -65,11 +65,11 @@ const Register = () => {
     <form className="max-w-sm mx-auto" onSubmit={registerUser}>
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-base md:text-xs font-normal text-dark"
+        className="block mb-1 text-xs font-normal text-dark"
       >
         Email address
       </label>
-      <div className="relative mb-6">
+      <div className="relative mb-3">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
           <svg
             width="16"
@@ -86,7 +86,7 @@ const Register = () => {
         </div>
         <input
           type="email"
-          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
+          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5 text-sm text-grey"
           placeholder="e.g. alex@email.com"
           name="email"
           onChange={handleInputs}
@@ -96,11 +96,11 @@ const Register = () => {
       {/* create password */}
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-base md:text-xs font-normal text-dark"
+        className="block mb-1 text-xs font-normal text-dark"
       >
         Create password
       </label>
-      <div className="relative mb-6">
+      <div className="relative mb-3">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
           <svg
             width="16"
@@ -117,7 +117,7 @@ const Register = () => {
         </div>
         <input
           type="password"
-          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
+          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5 text-sm text-grey"
           placeholder="Enter your password"
           name="password"
           onChange={handleInputs}
@@ -127,7 +127,7 @@ const Register = () => {
       {/* confirm password */}
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-base md:text-xs font-normal text-dark"
+        className="block mb-1 text-xs font-normal text-dark"
       >
         Confirm password
       </label>
@@ -148,14 +148,14 @@ const Register = () => {
         </div>
         <input
           type="password"
-          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
+          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5 text-sm text-grey"
           placeholder="Enter your password"
           name="confirmPassword"
           onChange={handleInputs}
         />
       </div>
 
-      <p className="text-sm md:text-base font-normal text-grey text-left mb-3 -mt-2">
+      <p className="text-sm font-normal text-grey text-left mb-3 -mt-2">
         Password must contains at least 8 characters
       </p>
 
@@ -169,9 +169,9 @@ const Register = () => {
         {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : "Register"}
       </Button>
 
-      <span className="block text-base font-normal text-grey text-center mt-3">
+      <span className="block text-sm font-normal text-grey text-center mt-3">
         Already have an account?{" "}
-        <Link href={"/login"} className="text-primary">
+        <Link href={"/login"} className="text-primary font-semibold">
           Login
         </Link>
       </span>

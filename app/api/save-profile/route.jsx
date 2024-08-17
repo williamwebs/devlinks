@@ -5,7 +5,7 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import Page from "@/models/page";
 
 export const POST = async (req) => {
-  const { firstname, lastname, url, image, bio } = await req.json();
+  const { firstname, lastname, image, bio } = await req.json();
   const session = await getServerSession(authOptions);
 
   console.log(session);
@@ -22,7 +22,6 @@ export const POST = async (req) => {
         firstname,
         lastname,
         image,
-        url,
         bio,
       });
     } else {
@@ -32,7 +31,6 @@ export const POST = async (req) => {
         lastname,
         email: session?.user?.email,
         image,
-        url,
         bio,
       });
     }
@@ -44,6 +42,8 @@ export const POST = async (req) => {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
+
     return NextResponse.json(
       {
         error: "error saving profile",

@@ -61,7 +61,6 @@ const Profile = () => {
       handleInputs(e);
       setBioCount(wordCount);
     } else {
-      // e.target.value = bio;
       console.log("more than 20 words!");
     }
   };
@@ -83,8 +82,8 @@ const Profile = () => {
         setLoading(false);
       }
     } catch (error) {
-      toast.error(error);
-      console.log(error);
+      toast.error(error.response.data.error);
+      console.log(error.response.data.error);
       setLoading(false);
     }
 
@@ -171,7 +170,7 @@ const Profile = () => {
               onChange={handleImageUpload}
             />
             <div className="w-full md:w-3/6">
-              <p className="text-sm text-center md:text-left font-normal text-grey ">
+              <p className="text-sm text-center md:text-left font-normal text-grey italic ">
                 Image must be below 1024x1024px. Use PNG or JPG format.
               </p>
             </div>
@@ -185,7 +184,7 @@ const Profile = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-5 h-16 md:h-10">
           <label
             htmlFor="firstname"
-            className="text-base font-normal text-grey w-full md:w-1/3"
+            className="text-sm font-normal text-grey w-full md:w-1/3"
           >
             First name{" "}
             <span className="text-base font-semibold text-red">*</span>
@@ -195,7 +194,7 @@ const Profile = () => {
             <input
               type="text"
               name="firstname"
-              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5"
+              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5 text-sm text-grey"
               placeholder="e.g. John"
               onChange={handleInputs}
               defaultValue={profile?.firstname}
@@ -207,7 +206,7 @@ const Profile = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-5 h-16 md:h-10">
           <label
             htmlFor="lastname"
-            className="text-base font-normal text-grey w-full md:w-1/3"
+            className="text-sm font-normal text-grey w-full md:w-1/3"
           >
             Last name{" "}
             <span className="text-base font-semibold text-red">*</span>
@@ -217,33 +216,10 @@ const Profile = () => {
             <input
               type="text"
               name="lastname"
-              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5"
+              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5 text-sm text-grey"
               placeholder="e.g. Applesees"
               onChange={handleInputs}
               defaultValue={profile?.lastname}
-            />
-          </div>
-        </div>
-
-        {/* profile public link */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between h-16 md:h-10 mb-5">
-          <label
-            htmlFor="url"
-            className="text-base font-normal text-grey w-full md:w-1/3"
-          >
-            Public link{" "}
-            <span className="text-base font-semibold text-red">*</span>
-          </label>
-
-          <div className="w-full md:w-2/3">
-            <input
-              type="text"
-              name="url"
-              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5"
-              placeholder="e.g johndoe (https://devlinks.web.app/johndoe)"
-              onChange={handleInputs}
-              defaultValue={profile?.url}
-              readOnly={profile?.url}
             />
           </div>
         </div>
@@ -252,7 +228,7 @@ const Profile = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between h-16 md:h-10 mb-5">
           <label
             htmlFor="email"
-            className="text-base font-normal text-grey w-full md:w-1/3"
+            className="text-sm font-normal text-grey w-full md:w-1/3"
           >
             Email
           </label>
@@ -261,7 +237,7 @@ const Profile = () => {
             <input
               type="email"
               name="email"
-              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5"
+              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full p-2.5 text-sm text-grey"
               placeholder="e.g. email@email.com"
               onChange={handleInputs}
               defaultValue={profile?.email}
@@ -274,7 +250,7 @@ const Profile = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between h-20">
           <label
             htmlFor="bio"
-            className="w-full text-base font-normal text-grey md:w-1/3"
+            className="w-full text-sm font-normal text-grey md:w-1/3"
           >
             Bio{" "}
             <sup>
@@ -285,7 +261,7 @@ const Profile = () => {
           <div className="w-full md:w-2/3">
             <textarea
               name="bio"
-              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full  p-2.5 resize-none"
+              className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary focus:shadow focus:shadow-primary block w-full  p-2.5 resize-none text-sm text-grey"
               placeholder="Frontend developer | website designer..."
               onChange={handleBioChange}
               defaultValue={profile?.bio}

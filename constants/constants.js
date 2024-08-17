@@ -1,5 +1,7 @@
 import {
+  faBehance,
   faDev,
+  faDribbble,
   faFacebook,
   faFreeCodeCamp,
   faGithub,
@@ -11,7 +13,7 @@ import {
   faXTwitter,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { faCircleUser, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faEarthAfrica, faLink, faUserTie } from "@fortawesome/free-solid-svg-icons";
 
 export const navigationLinks = [
   {
@@ -30,6 +32,14 @@ export const dropdownList = [
   {
     name: "Github",
     icon: faGithub,
+  },
+  {
+    name: "Behance",
+    icon: faBehance,
+  },
+  {
+    name: "Dribble",
+    icon: faDribbble,
   },
   {
     name: "Youtube",
@@ -70,5 +80,13 @@ export const dropdownList = [
   {
     name: "StackOverflow",
     icon: faStackOverflow,
+  },
+  {
+    name: "Portfolio",
+    icon: faUserTie,
+  },
+  {
+    name: "Others",
+    icon: faEarthAfrica,
   },
 ];

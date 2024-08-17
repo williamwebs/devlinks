@@ -18,14 +18,12 @@ import toast from "react-hot-toast";
 const Nav = () => {
   const [url, setUrl] = useState("");
   const pathname = usePathname();
-  console.log(pathname);
 
   // fetch profile details
   const fetchUserProfile = async () => {
     try {
       const res = await axios.get("/api/get-profile");
       setUrl(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -33,13 +31,6 @@ const Nav = () => {
 
   useEffect(() => {
     fetchUserProfile();
-    // const intervalId = setInterval(() => {
-    //   fetchUserProfile();
-    // }, 5000); // fetch data every 5 seconds
-
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
   }, []);
 
   return (
@@ -50,7 +41,7 @@ const Nav = () => {
           <Image
             src={"/images/devlinks-logo.png"}
             height={30}
-            width={130}
+            width={120}
             alt="devlinks logo"
             className="hidden md:block"
           />
@@ -72,8 +63,8 @@ const Nav = () => {
               key={index}
               className={
                 pathname === link.href
-                  ? "flex items-center gap-1 px-4 md:px-6 py-2 rounded-lg text-primary bg-veryLightBlue font-medium text-base"
-                  : "flex items-center gap-1 px-4 md:px-6 py-2 rounded-lg text-grey font-medium text-base"
+                  ? "flex items-center gap-1 px-4 md:px-6 py-2 rounded-lg text-primary bg-veryLightBlue font-medium text-sm"
+                  : "flex items-center gap-1 px-4 md:px-6 py-2 rounded-lg text-grey font-medium text-sm"
               }
             >
               <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
@@ -86,7 +77,7 @@ const Nav = () => {
           {url?.url && (
             <Link
               href={`/${url.url}`}
-              className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-base"
+              className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-sm"
             >
               <span className="hidden md:flex">Preview</span>
               <FontAwesomeIcon icon={faEye} className="w-4 h-4 md:hidden" />
@@ -96,7 +87,7 @@ const Nav = () => {
             <Button
               variant="outline"
               size="default"
-              className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-base"
+              className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-sm"
               onClick={() => toast.error(`${url.error}`)}
             >
               <span className="hidden md:flex">Preview</span>

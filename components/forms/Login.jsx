@@ -55,11 +55,11 @@ const Login = () => {
     <form className="max-w-sm mx-auto" onSubmit={handleLogin}>
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-base md:text-xs font-normal text-dark"
+        className="block mb-1 text-xs font-normal text-dark"
       >
         Your Email
       </label>
-      <div className="relative mb-6">
+      <div className="relative mb-3">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
           <svg
             width="16"
@@ -76,7 +76,7 @@ const Login = () => {
         </div>
         <input
           type="email"
-          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
+          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5 text-sm text-grey"
           placeholder="e.g. alex@email.com"
           onChange={handleInputs}
           name="email"
@@ -86,11 +86,11 @@ const Login = () => {
       {/* password */}
       <label
         htmlFor="email-address-icon"
-        className="block mb-2 text-base md:text-xs font-normal text-dark"
+        className="block mb-1 text-xs font-normal text-dark"
       >
         Password
       </label>
-      <div className="relative mb-6">
+      <div className="relative mb-3">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
           <svg
             width="16"
@@ -107,7 +107,7 @@ const Login = () => {
         </div>
         <input
           type="password"
-          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
+          className="bg-gray-50 border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5 text-sm text-grey"
           placeholder="Enter your password"
           onChange={handleInputs}
           name="password"
@@ -124,9 +124,9 @@ const Login = () => {
         {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : "Login"}
       </Button>
 
-      <span className="block text-base font-normal text-grey text-center mt-6">
+      <span className="block text-sm font-normal text-grey text-center mt-3">
         Don’t have an account?{" "}
-        <Link href={"/register"} className="text-primary">
+        <Link href={"/register"} className="text-primary font-semibold">
           Create account
         </Link>
       </span>

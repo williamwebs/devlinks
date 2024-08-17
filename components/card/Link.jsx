@@ -1,10 +1,12 @@
 "use client";
 
-import { faArrowRight, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faEarthAfrica, faLink, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
+  faBehance,
   faDev,
+  faDribbble,
   faFacebook,
   faFreeCodeCamp,
   faGithub,
@@ -47,6 +49,14 @@ const Link = ({ link, index }) => {
           ? "bg-hashnode"
           : link.name === "StackOverflow"
           ? "bg-stackoverflow"
+          : link.name === "Behance"
+          ? "bg-[#053eff]"
+          : link.name === "Dribble"
+          ? "bg-[#ea4c89]"
+          : link.name === "Portfolio"
+          ? "bg-[#5ccc78]"
+          : link.name === "Others"
+          ? "bg-[#479fd7]"
           : "bg-bgGrey"
       }`}
     >
@@ -76,6 +86,14 @@ const Link = ({ link, index }) => {
                 ? faHashnode
                 : link.name === "StackOverflow"
                 ? faStackOverflow
+                : link.name === "Behance"
+                ? faBehance
+                : link.name === "Dribble"
+                ? faDribbble
+                : link.name === "Portfolio"
+                ? faUserTie
+                : link.name === "Others"
+                ? faEarthAfrica
                 : faLink
             }
             className="w-3 h-3 mr-1 text-white"

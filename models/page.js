@@ -12,7 +12,7 @@ const PageSchema = new Schema(
     },
     url: {
       type: String,
-      required: [true, "url is required!"],
+      // required: [true, "url is required!"],
       unique: [true, "url has been taken!", { caseInsensitive: true }],
     },
     email: {

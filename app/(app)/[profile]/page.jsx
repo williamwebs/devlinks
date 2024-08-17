@@ -62,14 +62,16 @@ const ProfilePage = () => {
       {/* main content */}
       <main>
         <header className="border bg-primary h-64 px-5 py-3 rounded-b-3xl">
-          {session && (
-            <nav className="bg-white rounded-lg w-full p-2 flex items-center justify-between">
+          <nav className="bg-white rounded-lg w-full p-2 flex items-center justify-between">
+            {session && (
               <Button variant="outline" href="/dashboard">
                 Back to Editor
               </Button>
-              <Button onClick={copyProfileURL}>Share Link</Button>
-            </nav>
-          )}
+            )}
+            <Button onClick={copyProfileURL} className="ml-auto">
+              Share Link
+            </Button>
+          </nav>
         </header>
         <div className="flex justify-center w-full">
           <div className="-mt-16 bg-white shadow rounded-2xl h-full max-w-80 w-full py-10 px-8 mb-8">
@@ -93,8 +95,14 @@ const ProfilePage = () => {
                   <h4 className="font-semibold text-xl text-dark">
                     {page?.firstname + " " + page?.lastname}
                   </h4>
-                  <p className="font-normal text-grey text-xs my-1">
+                  <a
+                    href={`mailto:${page?.email}`}
+                    className="font-normal underline text-grey text-xs my-1"
+                  >
                     {page?.email}
+                  </a>
+                  <p className="font-medium text-grey text-xs my-1">
+                    {page?.bio}
                   </p>
                 </div>
               )}

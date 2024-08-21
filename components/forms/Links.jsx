@@ -5,6 +5,8 @@ import {
   faChartSimple,
   faChevronDown,
   faEarthAfrica,
+  faEquals,
+  faEye,
   faLink,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
@@ -110,13 +112,22 @@ const Links = () => {
           <div key={index} className="p-5 bg-white2 rounded-lg mb-6">
             <div className="select__menu h-full my-2">
               <div className="flex items-center justify-between">
-                <p className="text-dark text-sm font-normal capitalize">
-                  #Platform {index + 1}
-                </p>
-                <FontAwesomeIcon
-                  icon={faChartSimple}
-                  className="text-dark w-3 h-3"
-                />
+                <div className="flex items-center gap-2">
+                  <FontAwesomeIcon
+                    icon={faEquals}
+                    className="w-3 h-3 text-dark cursor-pointer"
+                  />
+                  <p className="text-dark text-sm font-normal capitalize">
+                    Platform {index + 1}
+                  </p>
+                </div>
+                <div className="flex items-center gap-8 mr-4">
+                  <FontAwesomeIcon icon={faEye} className="text-dark w-3 h-3" />
+                  <FontAwesomeIcon
+                    icon={faChartSimple}
+                    className="text-dark w-3 h-3"
+                  />
+                </div>
               </div>
 
               <div className="select__btn flex items-center justify-between py-3 px-4 text-sm font-medium rounded-lg bg-white border border-lightGrey mt-1 cursor-pointer shadow-sm">
@@ -161,7 +172,11 @@ const Links = () => {
                   </div>
                   <span className="text-sm inline-block">{link.name}</span>
                 </div>
-                <p>0</p>
+
+                <div className="flex items-center gap-9">
+                  <p>0</p>
+                  <p>0</p>
+                </div>
               </div>
             </div>
 

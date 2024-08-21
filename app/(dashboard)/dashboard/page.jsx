@@ -3,11 +3,14 @@
 import { Button } from "@/components/button/Button";
 import Save from "@/components/button/Save";
 import Links from "@/components/forms/Links";
-import axios from "axios";
+import { db } from "@/firebase/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
+  const { data: session } = useSession();
   const [showForm, setShowForm] = useState(false);
   const [links, setLinks] = useState([]);
 
@@ -15,26 +18,28 @@ const Dashboard = () => {
     setShowForm((prev) => !prev);
   };
 
-  // fetch links from db
-  const getLinks = async () => {
-    try {
-      const res = await axios.get("/api/get-links");
-      setLinks(res.data);
-
-      if (res.data.length > 0) {
-        setShowForm(true);
-      } else {
-        setShowForm(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setShowForm(false);
-    }
-  };
-
+  // fetch profile details
   useEffect(() => {
-    getLinks();
-  }, []);
+    if (session?.user?.email) {
+      const unsubscribe = onSnapshot(
+        doc(db, "pages", session.user.email),
+        (doc) => {
+          try {
+            setLinks(doc.data().links);
+            if (doc.data().links?.length > 0) {
+              setShowForm(true);
+            } else {
+              setShowForm(false);
+            }
+          } catch (error) {
+            console.error("Error fetching profile data:", error);
+          }
+        }
+      );
+
+      return unsubscribe;
+    }
+  }, [session?.user?.email]);
 
   return (
     <main className="w-full">

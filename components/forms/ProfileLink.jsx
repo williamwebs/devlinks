@@ -68,7 +68,7 @@ const ProfileLink = () => {
             <FontAwesomeIcon icon={faChevronDown} className="w-3 h-3" />
           </div>
 
-          {/* lists */}
+          {/* dropdown lists */}
           {dropdownOpen && (
             <ul className="options relative p-4 bg-white rounded-lg mt-2 shadow-sm">
               {dropdownList.map((option, index) => (
@@ -90,6 +90,7 @@ const ProfileLink = () => {
           )}
         </div>
 
+        {/* input field starts here */}
         <div>
           <p className="text-dark text-sm font-normal capitalize">link</p>
 
@@ -117,6 +118,7 @@ const ProfileLink = () => {
             />
           </div>
         </div>
+        {/* inout field end here */}
       </div>
       <Save loading={loading} />
     </form>

@@ -5,6 +5,8 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -18,23 +20,47 @@ export const authOptions = {
         const { email, password } = credentials;
 
         try {
-          await connectToDB();
+          // check if the user exists in the db
+          const userRef = collection(db, "users");
+          const q = query(userRef, where("email", "==", email));
+          const querySnapshot = await getDocs(q);
 
-          const user = await User.findOne({ email });
-
-          if (!user) {
+          if (querySnapshot.empty) {
             throw new Error("Invalid email!");
             return null;
-          }
-
-          const passwordsMatch = await bcrypt.compare(password, user.password);
-
-          if (!passwordsMatch) {
-            throw new Error("Incorrect password!");
-            return null;
           } else {
-            return user;
+            const user = querySnapshot.docs[0].data();
+
+            const passwordsMatch = await bcrypt.compare(
+              password,
+              user.password
+            );
+
+            if (!passwordsMatch) {
+              throw new Error("Incorrect password!");
+              return null;
+            } else {
+              return user;
+            }
           }
+
+          // await connectToDB();
+
+          // const user = await User.findOne({ email });
+
+          // if (!user) {
+          //   throw new Error("Invalid email!");
+          //   return null;
+          // }
+
+          // const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          // if (!passwordsMatch) {
+          //   throw new Error("Incorrect password!");
+          //   return null;
+          // } else {
+          //   return user;
+          // }
         } catch (error) {
           console.log(error);
           throw new Error("Invalid email or password!");

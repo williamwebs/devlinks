@@ -1,8 +1,16 @@
-import { connectToDB } from "@/utils/database";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
-import Page from "@/models/page";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 export const POST = async (req) => {
   const { firstname, lastname, image, bio } = await req.json();
@@ -11,27 +19,51 @@ export const POST = async (req) => {
   console.log(session);
 
   try {
-    await connectToDB();
+    // check if user's profile exists in the db
+    const userDocRef = doc(db, "pages", session?.user?.email);
+    const userDoc = await getDoc(userDocRef);
 
-    //   check if page exits
-    const existingPage = await Page.findOne({ email: session?.user?.email });
+    // if (userDoc.exists()) {
+    //   await updateDoc(userDocRef, {
+    //     ...userDoc.data(),
+    //     ...updates,
+    //     updatedAt: serverTimestamp(),
+    //   });
+    // } else {
+    //   await setDoc(userDocRef, {
+    //     email: session?.user?.email,
+    //     ...updates,
+    //     createdAt: serverTimestamp(),
+    //     updatedAt: serverTimestamp(),
+    //   });
+    // }
 
-    if (existingPage) {
-      //  update the existing page
-      await Page.findByIdAndUpdate(existingPage._id, {
-        firstname,
-        lastname,
-        image,
-        bio,
-      });
+    if (userDoc.exists()) {
+      await setDoc(
+        userDocRef,
+        {
+          firstname: firstname || userDoc.data().firstname,
+          lastname: lastname || userDoc.data().lastname,
+          image: image || "",
+          bio: bio || "",
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
     } else {
-      // create new page
-      await Page.create({
+      // create a new profile
+      await setDoc(userDocRef, {
+        email: session?.user?.email,
         firstname,
         lastname,
-        email: session?.user?.email,
-        image,
-        bio,
+        image: image || "",
+        bio: bio || "",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+
+      await updateDoc(userDocRef, {
+        _id: userDocRef.id,
       });
     }
 

@@ -1,8 +1,18 @@
-import { connectToDB } from "@/utils/database";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
-import Page from "@/models/page";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 export const POST = async (req) => {
   const { url } = await req.json();
@@ -11,12 +21,15 @@ export const POST = async (req) => {
   console.log(session);
 
   try {
-    await connectToDB();
+    const userDocRef = doc(db, "pages", session?.user?.email);
 
-    //   check if URL exists
-    const existingPageWithURL = await Page.findOne({ url });
+    const existingURLQuery = query(
+      collection(db, "pages"),
+      where("url", "==", url)
+    );
+    const existingURLDocs = await getDocs(existingURLQuery);
 
-    if (existingPageWithURL) {
+    if (existingURLDocs.docs.length > 0) {
       return NextResponse.json(
         {
           error: "URL already exists!",
@@ -26,13 +39,20 @@ export const POST = async (req) => {
         }
       );
     } else {
-      //   check if page exits
-      const existingPage = await Page.findOne({ email: session?.user?.email });
+      // check if the user has a page
+      const userDoc = await getDoc(userDocRef);
 
-      if (existingPage) {
-        await Page.findByIdAndUpdate(existingPage._id, {
-          url,
-        });
+      if (userDoc.exists()) {
+        // URL does not exist, proceed to updating the user's document
+        await updateDoc(
+          userDocRef,
+          {
+            url,
+            updatedAt: serverTimestamp(),
+          },
+          { merge: true }
+        );
+
         return NextResponse.json(
           {
             message: "URL saved successfully!",
@@ -51,6 +71,8 @@ export const POST = async (req) => {
       }
     }
   } catch (error) {
+    console.log(error);
+
     return NextResponse.json(
       {
         error: "error saving URL!",

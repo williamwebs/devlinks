@@ -5,33 +5,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import {
   faArrowRightFromBracket,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Button } from "../button/Button";
 import toast from "react-hot-toast";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 const Nav = () => {
-  const [url, setUrl] = useState("");
+  const [url, setURL] = useState("");
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   // fetch profile details
-  const fetchUserProfile = async () => {
-    try {
-      const res = await axios.get("/api/get-profile");
-      setUrl(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
+    if (session?.user?.email) {
+      const unsubscribe = onSnapshot(
+        doc(db, "pages", session.user.email),
+        (doc) => {
+          try {
+            setURL(doc.data());
+          } catch (error) {
+            console.error("Error fetching profile data:", error);
+          }
+        }
+      );
+
+      return unsubscribe;
+    }
+  }, [session?.user?.email]);
 
   return (
     <nav className="py-4 m-4 bg-white rounded-lg">

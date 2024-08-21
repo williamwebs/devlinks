@@ -70,12 +70,12 @@ const Links = () => {
               <div className="mr-2">
                 <FontAwesomeIcon
                   icon={selectedOption.icon}
-                  className="w-3 h-3"
+                  className="w-3 h-3 border border-transparent"
                 />
               </div>
-              <span className="btn__text">{selectedOption.name}</span>
+              <span className="text-sm inline-block">{selectedOption.name}</span>
             </div>
-            <FontAwesomeIcon icon={faChevronDown} className="w-3 h-3" />
+            <FontAwesomeIcon icon={faChevronDown} className="w-2 h-2" />
           </div>
 
           {/* lists */}
@@ -123,7 +123,7 @@ const Links = () => {
             </div>
             <input
               type="text"
-              className="bg-white border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
+              className="bg-white text-sm border border-lightGrey rounded-lg focus:ring-primary focus:border-primary focus:outline-primary block w-full ps-10 p-2.5"
               placeholder="e.g. https://www.github.com/johnappleseed"
               name="link"
               onChange={(e) => setLink(e.target.value)}

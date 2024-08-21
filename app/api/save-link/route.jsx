@@ -4,12 +4,55 @@ import { connectToDB } from "@/utils/database";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 export const POST = async (req) => {
   const { name, href } = await req.json();
   const session = await getServerSession(authOptions);
 
   try {
+    const userDocRef = doc(db, "pages", session?.user?.email);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      // check if the link already exists
+      const existingLinks = userDoc
+        .data()
+        .links?.find((link) => link.name === name);
+
+      if (existingLinks) {
+        // update the existing link
+        await updateDoc(userDocRef, {
+          links: userDoc
+            .data()
+            .links.map((link) =>
+              link.name === name ? { ...link, href } : link
+            ),
+        });
+      } else {
+        // Add new link
+        await updateDoc(
+          userDocRef,
+          {
+            links: [...(userDoc.data().links || []), { name, href }],
+          },
+          { merge: true }
+        );
+      }
+
+      return NextResponse.json(
+        {
+          message: "link saved successfully!",
+        },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json({
+        error: "complete your profile first!",
+      });
+    }
+
     await connectToDB();
 
     const userPage = await Page.findOne({ email: session?.user?.email });

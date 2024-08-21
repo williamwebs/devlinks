@@ -1,25 +1,33 @@
 "use client";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Card from "../card/Card";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+import { useSession } from "next-auth/react";
 
 const SideNav = () => {
   const [profile, setProfile] = useState();
+  const { data: session } = useSession();
+  console.log(session?.user?.email);
 
   // fetch profile details
-  const fetchUserProfile = async () => {
-    try {
-      const res = await axios.get("/api/get-profile");
-      setProfile(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
+    if (session?.user?.email) {
+      const unsubscribe = onSnapshot(
+        doc(db, "pages", session.user.email),
+        (doc) => {
+          try {
+            setProfile(doc.data());
+          } catch (error) {
+            console.error("Error fetching profile data:", error);
+          }
+        }
+      );
+
+      return unsubscribe;
+    }
+  }, [session?.user?.email]);
 
   return (
     <div className="flex items-center justify-center h-full py-10">
@@ -37,8 +45,8 @@ const SideNav = () => {
               {profile?._id ? (
                 <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
                   <img
-                    src={profile.image}
-                    alt={profile.firstname + " " + profile.lastname}
+                    src={profile?.image}
+                    alt={profile?.firstname + " " + profile?.lastname}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -50,16 +58,11 @@ const SideNav = () => {
                 {profile?._id ? (
                   <div className="text-center">
                     <h4 className="font-semibold text-base text-dark">
-                      {profile.firstname + " " + profile.lastname}
+                      {profile?.firstname + " " + profile?.lastname}
                     </h4>
                     <p className="font-normal text-grey text-xs">
-                      {profile.email}
+                      {profile?.email}
                     </p>
-                    {/* <p className="font-normal text-grey text-xs mt-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Maiores, dolor! Quod, dolorum quidem. Tenetur magnam
-                      dignissimos eaque ipsam, illum reiciendis.{" "}
-                    </p> */}
                   </div>
                 ) : (
                   <div>

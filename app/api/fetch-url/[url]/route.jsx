@@ -1,6 +1,8 @@
 import { connectToDB } from "@/utils/database";
 import { NextResponse } from "next/server";
 import Page from "@/models/page";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 export const GET = async (req, res) => {
   // get the url from the link
@@ -9,11 +11,14 @@ export const GET = async (req, res) => {
   console.log(url);
 
   try {
-    await connectToDB();
-    //   check if page exits
-    const existingPage = await Page.findOne({ url });
-    if (existingPage) {
-      return NextResponse.json(existingPage);
+    const existingURLQuery = query(
+      collection(db, "pages"),
+      where("url", "==", url)
+    );
+    const existingURLDocs = await getDocs(existingURLQuery);
+
+    if (existingURLDocs.docs.length > 0) {
+      return NextResponse.json(existingURLDocs.docs[0].data());
     } else {
       return NextResponse(
         {
@@ -27,14 +32,6 @@ export const GET = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    return NextResponse.json(
-      error
-      // {
-      //   error: "error fetching profile!",
-      // },
-      // {
-      //   status: 500,
-      // }
-    );
+    return NextResponse.json(error, { status: 500 });
   }
 };

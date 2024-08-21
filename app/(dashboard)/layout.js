@@ -31,19 +31,21 @@ export default function AppLayout({ children }) {
   return (
     <html lang="en">
       <body className={sans.className}>
-        <Nav />
-        <Toaster />
-        <main className="m-4">
-          <div className="flex items-stretch gap-6 justify-between">
-            <div className="hidden md:block w-full max-h-screen sticky top-0 md:w-2/5 bg-white rounded-lg">
-              <SideNav />
-            </div>
+        <AuthProvider>
+          <Nav />
+          <Toaster />
+          <main className="m-4">
+            <div className="flex items-stretch gap-6 justify-between">
+              <div className="hidden md:block w-full max-h-screen sticky top-0 md:w-2/5 bg-white rounded-lg">
+                <SideNav />
+              </div>
 
-            <div className="w-full md:w-3/5 bg-white p-2 md:p-10 rounded-lg">
-              <AuthProvider>{children}</AuthProvider>
+              <div className="w-full md:w-3/5 bg-white p-2 md:p-10 rounded-lg">
+                {children}
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

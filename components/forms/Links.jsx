@@ -133,20 +133,8 @@ const Links = () => {
         profile.links.map((link, index) => (
           <div key={index} className="px-5 py-2 bg-white2 rounded-lg mb-6">
             <div className="select__menu h-full my-2">
-              {/* delete button */}
-              <div className="mb-3">
-                <div
-                  onClick={() => handleDelete(link)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow cursor-pointer ml-auto"
-                >
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    className="text-youtube w-3 h-3"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
+              {/* delete button & draggable */}
+              <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <FontAwesomeIcon
                     icon={faEquals}
@@ -157,6 +145,20 @@ const Links = () => {
                   </p>
                 </div>
 
+                {/* delete button */}
+                <div
+                  onClick={() => handleDelete(link)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow cursor-pointer"
+                >
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    className="text-youtube w-3 h-3"
+                  />
+                </div>
+              </div>
+
+              {/* view counts */}
+              <div className="w-fit  ml-auto">
                 <div className="flex items-center gap-8 mr-4">
                   <FontAwesomeIcon icon={faEye} className="text-dark w-3 h-3" />
                   <FontAwesomeIcon

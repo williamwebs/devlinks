@@ -8,6 +8,7 @@ import {
   faEquals,
   faEye,
   faLink,
+  faTrash,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +16,7 @@ import { useEffect, useState } from "react";
 import Save from "../button/Save";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useSession } from "next-auth/react";
 import {
@@ -104,13 +105,47 @@ const Links = () => {
     }
   }, [session?.user?.email]);
 
+  // delete a link
+  const handleDelete = async (link) => {
+    try {
+      const userDocRef = doc(db, "pages", session?.user?.email);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const updatedLinks = userDoc
+          .data()
+          .links.filter((l) => l.name !== link.name);
+        await updateDoc(userDocRef, { links: updatedLinks });
+        toast.success("Link deleted successfully!");
+      } else {
+        console.log("User document not found!");
+        toast.error("not deleted!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <form action="" onSubmit={handleSubmit}>
       {/* display the links from db here */}
       {profile?.links?.length > 0 &&
         profile.links.map((link, index) => (
-          <div key={index} className="p-5 bg-white2 rounded-lg mb-6">
+          <div key={index} className="px-5 py-2 bg-white2 rounded-lg mb-6">
             <div className="select__menu h-full my-2">
+              {/* delete button */}
+              <div className="mb-3">
+                <div
+                  onClick={() => handleDelete(link)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow cursor-pointer ml-auto"
+                >
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    className="text-youtube w-3 h-3"
+                  />
+                </div>
+              </div>
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <FontAwesomeIcon
@@ -121,6 +156,7 @@ const Links = () => {
                     Platform {index + 1}
                   </p>
                 </div>
+
                 <div className="flex items-center gap-8 mr-4">
                   <FontAwesomeIcon icon={faEye} className="text-dark w-3 h-3" />
                   <FontAwesomeIcon

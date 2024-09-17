@@ -4,6 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import DnD from "@/components/DragAndDrop/DnD";
 
 export default function Home() {
   const session = getServerSession(authOptions);
@@ -44,6 +45,7 @@ export default function Home() {
           </div>
         </nav>
       </header>
+
       <section className="h-screen w-full bg-codewars py-32">
         <div className="container h-full flex items-center pt-20">
           <div className="w-full md:w-1/2">
@@ -63,6 +65,7 @@ export default function Home() {
             >
               Get started
             </Button>
+            <DnD />
           </div>
         </div>
       </section>

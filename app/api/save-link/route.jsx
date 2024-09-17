@@ -1,15 +1,17 @@
 import Page from "@/models/page";
-import User from "@/models/user";
 import { connectToDB } from "@/utils/database";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
+import { v4 as uuidv4 } from "uuid";
 
 export const POST = async (req) => {
   const { name, href } = await req.json();
   const session = await getServerSession(authOptions);
+  const linkID = uuidv4();
+  console.log(linkID);
 
   try {
     const userDocRef = doc(db, "pages", session?.user?.email);
@@ -35,7 +37,10 @@ export const POST = async (req) => {
         await updateDoc(
           userDocRef,
           {
-            links: [...(userDoc.data().links || []), { name, href }],
+            links: [
+              ...(userDoc.data().links || []),
+              { name, href, id: linkID },
+            ],
           },
           { merge: true }
         );

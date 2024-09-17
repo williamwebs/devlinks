@@ -4,7 +4,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import DnD from "@/components/DragAndDrop/DnD";
 
 export default function Home() {
   const session = getServerSession(authOptions);
@@ -65,7 +64,6 @@ export default function Home() {
             >
               Get started
             </Button>
-            <DnD />
           </div>
         </div>
       </section>

@@ -117,31 +117,6 @@ const Links = () => {
     } catch (error) {
       console.error("Failed to update links", error);
     }
-
-    // const newLinks = arrayMove(profile.links, oldIndex, newIndex);
-    // setProfile((prevProfile) => ({ ...prevProfile, links: newLinks }));
-
-    // if (over && active.id !== over.id) {
-    //   if (profile && profile.links) {
-    //     // set link data
-    //     const oldIndex = profile.links.findIndex(
-    //       (item) => item.id === active.id
-    //     );
-    //     const newIndex = profile.links.findIndex((item) => item.id === over.id);
-
-    //     // agjust the link array in the db to the new arrangement
-    //     const newLinks = arrayMove(profile.links, oldIndex, newIndex);
-    //     setProfile((prevProfile) => ({ ...prevProfile, links: newLinks }));
-
-    //     try {
-    //       const linksRef = doc(db, "pages", session.user.email);
-    //       await updateDoc(linksRef, { links: newLinks });
-    //       console.log("Links updated successfully");
-    //     } catch (error) {
-    //       console.error("Failed to update links", error);
-    //     }
-    //   }
-    // }
   };
 
   return (

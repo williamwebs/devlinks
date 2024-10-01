@@ -84,6 +84,7 @@ const Nav = () => {
             <Link
               href={`/${url.url}`}
               className="px-3 md:px-6 py-2 rounded-lg border border-primary text-primary font-medium text-sm"
+              ownerEmail={session.user.email}
             >
               <span className="hidden md:flex">Preview</span>
               <FontAwesomeIcon icon={faEye} className="w-4 h-4 md:hidden" />

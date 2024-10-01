@@ -3,7 +3,7 @@ import { connectToDB } from "@/utils/database";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,11 +36,20 @@ export const POST = async (req) => {
         // Add new link
         await updateDoc(
           userDocRef,
+          // {
+          //   links: [
+          //     ...(userDoc.data().links || []),
+          //     { name, href, id: linkID, totalClicks: 0, dailyClicks: {} },
+          //   ],
+          // },
           {
-            links: [
-              ...(userDoc.data().links || []),
-              { name, href, id: linkID },
-            ],
+            links: arrayUnion({
+              name,
+              href,
+              id: linkID,
+              totalClicks: 0,
+              dailyClicks: {},
+            }),
           },
           { merge: true }
         );

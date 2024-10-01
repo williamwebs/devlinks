@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 const SideNav = () => {
   const [profile, setProfile] = useState();
   const { data: session } = useSession();
-  console.log(session?.user?.email);
+  // console.log(session?.user?.email);
 
   // fetch profile details
   useEffect(() => {

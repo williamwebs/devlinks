@@ -35,9 +35,9 @@ import { CSS } from "@dnd-kit/utilities";
 const SavedLink = ({ link, index, id }) => {
   const { data: session } = useSession();
   const [linkItem, setLinkItem] = useState("");
-
   const { attributes, listeners, transform, transition, setNodeRef } =
     useSortable({ id });
+  const date = new Date().toISOString().split("T")[0];
 
   // delete a link
   const handleDelete = async (link) => {
@@ -98,7 +98,7 @@ const SavedLink = ({ link, index, id }) => {
         {/* view counts */}
         <div className="w-fit  ml-auto">
           <div className="flex items-center gap-8 mr-4">
-            <FontAwesomeIcon icon={faEye} className="text-dark w-3 h-3" />
+            {/* <FontAwesomeIcon icon={faEye} className="text-dark w-3 h-3" /> */}
             <FontAwesomeIcon
               icon={faChartSimple}
               className="text-dark w-3 h-3"
@@ -150,8 +150,8 @@ const SavedLink = ({ link, index, id }) => {
           </div>
 
           <div className="flex items-center gap-9">
-            <p>0</p>
-            <p>0</p>
+            {/* <p>{link.dailyClicks[date] || 0}</p> */}
+            <p>{link.totalClicks || 0}</p>
           </div>
         </div>
       </div>

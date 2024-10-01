@@ -15,6 +15,7 @@ const ProfilePage = () => {
   const path = usePathname();
   const url = path.split("/").pop();
   // console.log(url);
+  
 
   const router = useRouter();
 
@@ -118,7 +119,7 @@ const ProfilePage = () => {
               <div className="mt-6">
                 {page &&
                   page?.links?.map((link, index) => (
-                    <Link link={link} key={index} />
+                    <Link link={link} key={index} owner={page?.email} />
                   ))}
               </div>
 

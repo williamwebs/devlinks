@@ -17,9 +17,11 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useMediaQuery } from "react-responsive";
 
 const Links = () => {
   const { data: session } = useSession();
+  const isDesktop = useMediaQuery({ minWidth: 768 });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState({
     name: dropdownList?.[0].name,
@@ -28,6 +30,12 @@ const Links = () => {
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState();
+
+  const [isDisabled, setIsDisabled] = useState(!isDesktop);
+
+  useEffect(() => {
+    setIsDisabled(!isDesktop);
+  }, [isDesktop]);
 
   // handle dropdown toggle
   const handleDropdown = ({ onSave }) => {
@@ -44,13 +52,13 @@ const Links = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(selectedOption);
+    // console.log(selectedOption);
 
     const data = {
       name: selectedOption.name,
       href: link,
     };
-    console.log(data);
+    // console.log(data);
 
     try {
       setLoading(true);
@@ -65,7 +73,7 @@ const Links = () => {
     } catch (error) {
       setLoading(false);
       toast.error("An unexpected error occurred.Try again!");
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -76,7 +84,7 @@ const Links = () => {
         doc(db, "pages", session?.user?.email),
         (doc) => {
           try {
-            console.log(doc.data().links);
+            // console.log(doc.data().links);
             setProfile(doc.data());
           } catch (error) {
             console.error("Error fetching profile data:", error);
@@ -94,7 +102,7 @@ const Links = () => {
   const handleDragEnd = async (event) => {
     const { active, over } = event;
 
-    console.log({ active, over });
+    // console.log({ active, over });
 
     if (active.id === over.id) return;
 
@@ -130,6 +138,7 @@ const Links = () => {
           <SortableContext
             items={profile?.links}
             strategy={verticalListSortingStrategy}
+            disabled={isDisabled}
           >
             {profile.links.map((link, index) => (
               <SavedLink

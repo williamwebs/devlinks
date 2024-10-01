@@ -15,7 +15,6 @@ const ProfilePage = () => {
   const path = usePathname();
   const url = path.split("/").pop();
   // console.log(url);
-  
 
   const router = useRouter();
 
@@ -49,6 +48,7 @@ const ProfilePage = () => {
     <>
       {/* head */}
       <Head>
+        {/* Basic metadata */}
         <title>{page?.firstname + " " + page?.lastname}</title>
         <meta
           property="og:title"
@@ -58,6 +58,25 @@ const ProfilePage = () => {
         <meta property="og:image" content={page?.image} />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="profile" />
+
+        {/* Instagram metadata */}
+        <meta property="instagram:media_type" content="image" />
+
+        {/* LinkedIn metadata */}
+        <meta
+          property="linkedin:author"
+          content={page?.firstname + " " + page?.lastname}
+        />
+        <meta property="linkedin:publishedTime" content={page?.publishedTime} />
+
+        {/* Twitter Card metadata */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={page?.firstname + " " + page?.lastname}
+        />
+        <meta name="twitter:description" content={page?.bio} />
+        <meta name="twitter:image" content={page?.image} />
       </Head>
 
       {/* main content */}

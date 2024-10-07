@@ -131,9 +131,15 @@ export default function Home() {
         <footer className="bg-devto py-3">
           <div className="container text-grey text-sm text-center">
             &copy;{" "}
-            <a href="https://wa.link/u8xe3d" className="underline">
+            <a
+              href="https://devlinks-kohl.vercel.app/xyz"
+              className="underline"
+            >
               th_ejouRney.xyz
             </a>
+            {/* <a href="https://wa.link/u8xe3d" className="underline">
+              th_ejouRney.xyz
+            </a> */}
             , 2024
           </div>
         </footer>
